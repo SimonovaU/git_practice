@@ -14,69 +14,73 @@ from PyQt5.QtWidgets import (QWidget, QToolTip, QPushButton, QApplication, QGrid
 
 
 class Example(QWidget):
-
+    
     def __init__(self):
         super().__init__()
 
         self.initUI()
-        self.button.clicked.connect(self.showresult)
+        
 
 
     def initUI(self):
-        label1 = QLabel("A", self)
-        label2 = QLabel("B", self)
+        self.label1 = QLabel("A", self)
+        self.label2 = QLabel("B", self)
         
-        edit1 = QLineEdit()
-        edit2 = QLineEdit()
+        self.edit1 = QLineEdit()
+        self.edit2 = QLineEdit()
         
         self.button = QPushButton("Рассчитать", self)        
         self.button.setToolTip('Нажмите, чтобы рассчитать сумму, разность, произведение и частное A и B')
+        self.button.clicked.connect(lambda: showresult(self, self.edit1, self.edit2, self.edit3, self.edit4, self.edit5, self.edit6))
         
-        label3 = QLabel("Сумма", self)
-        label4 = QLabel("Разность", self)
-        label5 = QLabel("Произведение", self)
-        label6 = QLabel("Частное", self)
         
-        edit3 = QLineEdit()
-        edit4 = QLineEdit()
-        edit5 = QLineEdit()
-        edit6 = QLineEdit()
+        self.label3 = QLabel("Сумма", self)
+        self.label4 = QLabel("Разность", self)
+        self.label5 = QLabel("Произведение", self)
+        self.label6 = QLabel("Частное", self)
+        
+        self.edit3 = QLineEdit()
+        self.edit3.setReadOnly(True)
+        self.edit4 = QLineEdit()
+        self.edit4.setReadOnly(True)
+        self.edit5 = QLineEdit()
+        self.edit5.setReadOnly(True)
+        self.edit6 = QLineEdit()
+        self.edit6.setReadOnly(True)
         
         grid =QGridLayout()
         grid.setSpacing(10)
         
-        grid.addWidget(label1, 1, 0)
-        grid.addWidget(label2, 2, 0)
-        grid.addWidget(edit1, 1, 1)
-        grid.addWidget(edit2, 2, 1)
+        grid.addWidget(self.label1, 1, 0)
+        grid.addWidget(self.label2, 2, 0)
+        grid.addWidget(self.edit1, 1, 1)
+        grid.addWidget(self.edit2, 2, 1)
         grid.addWidget(self.button, 2, 2)
-        grid.addWidget(label3, 1, 4)
-        grid.addWidget(label5, 2, 4)
-        grid.addWidget(edit3, 1, 5)
-        grid.addWidget(edit4, 2, 5)
-        grid.addWidget(label4, 1, 6)      
-        grid.addWidget(label6, 2, 6)
-        grid.addWidget(edit5, 1, 7)
-        grid.addWidget(edit6, 2, 7)
+        grid.addWidget(self.label3, 1, 4)
+        grid.addWidget(self.label5, 2, 4)
+        grid.addWidget(self.edit3, 1, 5)
+        grid.addWidget(self.edit4, 2, 5)
+        grid.addWidget(self.label4, 1, 6)      
+        grid.addWidget(self.label6, 2, 6)
+        grid.addWidget(self.edit5, 1, 7)
+        grid.addWidget(self.edit6, 2, 7)
         
-        self.setLayout(grid)
-        self.button.clicked.connect(self.showresult)
-        
-        def showresult(self):
-            i1, РассчитатьPressed = QLineEdit.getInt(self, "calc","A", 0, -100, 100, 1)
-            i2, РассчитатьPressed = QLineEdit.getInt(self, "calc","B", 0, -100, 100, 1)
-            i3 = i1 + i2
-            i4 = i1 - i2
-            i5 = i1 * i2
-            i6 = i1 / i2
-            self.edit3.Text(i3)
-            self.edit4.Text(i4)
-            self.edit5.Text(i5)
-            self.edit6.Text(i6)
-  
+        self.setLayout(grid)      
         self.setGeometry(200, 200, 200, 200)
         self.setWindowTitle('Calc')
         self.show()
+        
+        def showresult(self, edit1, edit2, edit3, edit4, edit5, edit6):
+            self.i1 = int(self.edit1.text())
+            self.i2 = int(self.edit2.text())
+            self.i3 = self.i1 + self.i2
+            self.i5 = self.i1 - self.i2
+            self.i4 = self.i1 * self.i2
+            self.i6 = self.i1 / self.i2
+            self.edit3.setText(str(self.i3))
+            self.edit4.setText(str(self.i4))
+            self.edit5.setText(str(self.i5))
+            self.edit6.setText(str(self.i6))
         
         
 if __name__ == '__main__':
@@ -84,3 +88,36 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Example()
     sys.exit(app.exec_())
+    
+
+
+
+
+#from PyQt5.QtWidgets import (QApplication, QComboBox, QDialog,
+#QDialogButtonBox, QFormLayout, QGridLayout, QGroupBox, QHBoxLayout,
+#QLabel, QLineEdit, QMenu, QMenuBar, QPushButton, QSpinBox, QTextEdit,
+#QVBoxLayout)
+#
+#import sys
+#
+#class Dialog(QDialog):
+#
+#    def slot_method(self):
+#        print('slot method called.')
+#    
+#    def __init__(self):
+#        super(Dialog, self).__init__()
+#        
+#        button=QPushButton("Click")
+#        button.clicked.connect(self.slot_method)
+#        
+#        mainLayout = QVBoxLayout()
+#        mainLayout.addWidget(button)
+#        
+#        self.setLayout(mainLayout)
+#        self.setWindowTitle("Button Example - pythonspot.com")
+#
+#if __name__ == '__main__':
+#    app = QApplication(sys.argv)
+#    dialog = Dialog()
+#    sys.exit(dialog.exec_())
