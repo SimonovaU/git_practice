@@ -10,7 +10,7 @@
 
 
 import sys
-from PyQt5.QtWidgets import (QWidget, QToolTip, QPushButton, QApplication, QGridLayout, QLabel, QLineEdit) 
+from PyQt5.QtWidgets import (QWidget, QToolTip, QPushButton, QApplication, QGridLayout, QLabel, QLineEdit, QErrorMessage) 
 
 
 class Example(QWidget):
@@ -70,17 +70,23 @@ class Example(QWidget):
         self.setWindowTitle('Calc')
         self.show()
         
+        
+        
         def showresult(self, edit1, edit2, edit3, edit4, edit5, edit6):
             self.i1 = int(self.edit1.text())
             self.i2 = int(self.edit2.text())
-            self.i3 = self.i1 + self.i2
-            self.i5 = self.i1 - self.i2
-            self.i4 = self.i1 * self.i2
-            self.i6 = self.i1 / self.i2
-            self.edit3.setText(str(self.i3))
-            self.edit4.setText(str(self.i4))
-            self.edit5.setText(str(self.i5))
-            self.edit6.setText(str(self.i6))
+            if self.i2 == 0:
+                self.error_dialog = QErrorMessage()
+                self.error_dialog.showMessage('О нет! Деление на ноль!')
+            else:
+                self.i3 = self.i1 + self.i2
+                self.i5 = self.i1 - self.i2
+                self.i4 = self.i1 * self.i2
+                self.i6 = self.i1 / self.i2
+                self.edit3.setText(str(self.i3))
+                self.edit4.setText(str(self.i4))
+                self.edit5.setText(str(self.i5))
+                self.edit6.setText(str(self.i6))
         
         
 if __name__ == '__main__':
